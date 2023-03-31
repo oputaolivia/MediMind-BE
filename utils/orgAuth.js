@@ -53,9 +53,7 @@ const register = async(req, res) =>{
 
 const login = async (req, res) =>{
     const {email, password} = req.body;
-    Org.findOne({
-        email:email,
-    }), async(err, org) =>{
+    Org.findOne({email:email}, async(err, org) =>{
         if (err){
             res.status(500).send({
                 data: {},
@@ -84,7 +82,7 @@ const login = async (req, res) =>{
                     });
                 }else{
                     const token = jwt.sign({
-                        id : org._id,
+                        id : org._id
                     }, secretKey,{
                         expiresIn: "1h",
                     });
@@ -101,7 +99,7 @@ const login = async (req, res) =>{
                 }
             });
         }
-    }
+    });
 };
 
 const auth = (req, res, next) => {

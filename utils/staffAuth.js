@@ -1,24 +1,24 @@
-const { Patient } = require("../models/patientModel");
 const jwt = require('jsonwebtoken');
+const { Staff} = require('../models/staffModel');
 require('dotenv').config();
 
-const secretKey = process.env.PATIENT_SECRET;
+const secretKey = process.env.STAFF_SECRET;
 
-const patientLogin = async (req, res) =>{
-    const {firstName, lastName, medicalID} = req.body;
+const staffLogin = async (req, res) =>{
+    const {firstName, lastName,email} = req.body;
 
-    const patient = await Patient.findOne({
-        medicalID: medicalID
+    const staff = await Staff.findOne({
+        email:email
     })
-    if (!patient){
+    if (!staff){
             res.status(401).send({
                 data:{},
-                message: `Patient with medical ID ${medicalID} doesn't exist`,
+                message: `Staff with email: ${email} doesn't exist`,
                 status: 1,
             });
         }else{
             const token = jwt.sign({
-                id : patient._id,
+                id : staff._id,
             }, secretKey,{
                 expiresIn: "1h",
             });
@@ -26,35 +26,33 @@ const patientLogin = async (req, res) =>{
             res.status(200).send({
                 data: {
                     token,
-                    id: patient._id,
-                    medicalID: medicalID,
+                    id: staff._id,
+                    email:email,
                 },
-                message:" Patient Logged in",
+                message:"Staff Logged in",
                 status: 0,
             })
         };
 
-};
+    }
 
-
-const patientAuth = (req, res, next) => {
+const staffAuth = (req, res, next) => {
     const token = req.header("x-auth-token");
     if (!token)
       return res
         .status(401)
         .json({ msg: "No authenication token, authorization denied" });
   
-    const verfied = jwt.verify(token, secretKey);
+    const verfied = jwt.verify(token, process.env.SECRET);
     if (!verfied)
       return res
         .status(401)
         .json({ msg: "Token verification failed, authorization denied" });
   
-    req.patient = verfied.id;
+    req.staff = verfied.id;
     next();
-};
-
-module.exports ={
-    patientLogin,
-    patientAuth,
+  };
+module.exports = {
+    staffLogin,
+    staffAuth,
 }
