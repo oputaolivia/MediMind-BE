@@ -1,15 +1,11 @@
 const express = require('express');
-const { getPatient, getPatients, createPatient, updatePatient, deletePatient } = require('../controllers/patientControls');
-const { auth } = require('../utils/orgAuth');
+const { getPatient } = require('../controllers/patientControls');
 const { patientAuth, patientLogin } = require('../utils/patientAuth');
 
 const patientRoute = express.Router();
 
-patientRoute.post("/login", patientAuth, patientLogin);
-patientRoute.post("/createPatients", auth, createPatient);
-patientRoute.get("/getPatients", getPatients);
-patientRoute.get("/getPatient/:id", auth, getPatient);
-patientRoute.put("/updatePatient/:id", auth, updatePatient);
+patientRoute.post("/login", patientLogin);
+patientRoute.get("/getPatient/:id", patientAuth, getPatient);
 
 module.exports = {
     patientRoute,

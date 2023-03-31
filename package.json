@@ -6,8 +6,28 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
-    "mongoose": "^7.0.2",
+    "mongoose": "^6.8.4",
     "nodemailer": "^6.9.1",
     "nodemon": "^2.0.22"
-  }
+  },
+  "name": "medimind-be",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GoL-Team-MediMind/MediMind-BE.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GoL-Team-MediMind/MediMind-BE/issues"
+  },
+  "homepage": "https://github.com/GoL-Team-MediMind/MediMind-BE#readme"
 }

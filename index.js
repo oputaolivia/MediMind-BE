@@ -14,10 +14,12 @@ app.use(express.json());
 
 const { orgRoute } = require('./routes/orgRoute');
 const { patientRoute } = require('./routes/patientRoute');
+const { staffRoute } = require('./routes/staffRoute');
 
 
 app.use("/api/org", orgRoute);
-app.use("api/patient", patientRoute);
+app.use("/api/patient", patientRoute);
+app.use("/api/staff", staffRoute)
 
 app.listen(PORT, ()=>{
     console.log (`MediMind running on port ${PORT}`)
